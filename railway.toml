@@ -1,8 +1,5 @@
-[build]
-builder = "nixpacks"
-
 [deploy]
-startCommand = "./target/release/living_chess"
+startCommand = "./bin/living_chess"
 healthcheckPath = "/"
 healthcheckTimeout = 30
 restartPolicyType = "on_failure"
