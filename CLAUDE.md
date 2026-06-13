@@ -45,7 +45,7 @@ cargo check        # fast type-check without linking
 cargo clippy       # lint
 cargo test         # tests
 
-BIND=0.0.0.0:8080 cargo run   # custom port
+PORT=8080 cargo run           # custom port
 RUST_LOG=debug cargo run      # verbose logging
 ```
 
@@ -72,6 +72,19 @@ Dynamic data rendered server-side: session dates (next 5 Saturdays, `config::nex
 Client-side JS is kept for: countdown timer (ticks every second), walkthrough interactivity, hero SVG animation, tweaks panel state.
 
 Askama does not have a built-in `enumerate` filter — use index/is_first fields on structs instead of trying to enumerate in templates.
+
+## Railway Deployment
+
+The app is deployed via Docker (see `Dockerfile`). Railway builds the image and runs `./living_chess`.
+
+**Port binding:** The app reads the `PORT` env var (Railway injects this automatically). Default fallback is `3000` for local dev. Railway currently assigns `PORT=8080` — the Networking target port in Railway Settings must match (currently set to 8080).
+
+**Static files & content:** `static/` and `content/` are copied into the Docker image at build time. The Nixpacks default only copies the binary, so a custom `Dockerfile` is required.
+
+**Common 502 causes:**
+- Target port in Railway Settings → Networking doesn't match `PORT` — fix by editing the domain entry and setting the correct port
+- `[[deploy.environmentVariables]]` in `railway.toml` is not a supported field — never use it to inject env vars; set them in the Railway dashboard Variables tab instead
+- Dependency requires a newer Rust version than the Dockerfile specifies — check the error and bump `FROM rust:X.XX-slim-bookworm`
 
 ## Key Design Constraints
 

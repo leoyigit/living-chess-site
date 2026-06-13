@@ -60,7 +60,7 @@ cargo run
 ```
 
 ```bash
-BIND=0.0.0.0:8080 cargo run   # custom address
+PORT=8080 cargo run            # custom port
 RUST_LOG=debug cargo run       # verbose logs
 ```
 
@@ -120,17 +120,21 @@ Sessions run on Sundays at 18:00 CET, 20 seats per game.
 
 ## Deployment
 
-Deployed on [Railway](https://railway.app) — every push to `main` triggers an automatic redeploy.
+Deployed on [Railway](https://railway.app) via Docker — every push to `main` triggers an automatic redeploy.
 
 **Live prototype:** [living-chess-site-production.up.railway.app](https://living-chess-site-production.up.railway.app)
 
-To deploy your own instance, connect the GitHub repo to Railway. It auto-detects Rust via `nixpacks.toml` and runs `cargo build --release`.
+Railway builds the `Dockerfile`, which produces a minimal Debian image containing the binary, `static/`, and `content/`. Railway injects `PORT` automatically — the app binds to `0.0.0.0:$PORT`.
+
+**Railway networking:** The target port in Settings → Networking must match the `PORT` Railway injects (currently `8080`). If you see a 502, this is the first thing to check.
+
+**Variables:** Never set `PORT` manually in Railway's Variables tab — Railway injects it automatically based on the networking target port. Do not use `[[deploy.environmentVariables]]` in `railway.toml`; it is not a supported field.
 
 For a custom VPS:
 
 ```bash
 cargo build -r
-BIND=0.0.0.0:80 ./target/release/living_chess
+PORT=80 ./target/release/living_chess
 ```
 
 Set `RUST_LOG=living_chess=info,tower_http=warn` for production log level.

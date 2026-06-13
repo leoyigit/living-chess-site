@@ -35,6 +35,10 @@ async fn main() {
         .route("/blog",                    get(routes::blog::list))
         .route("/blog/author/:author_slug", get(routes::blog::by_author))
         .route("/blog/:slug",              get(routes::blog::post))
+        // SEO
+        .route("/robots.txt",          get(routes::seo::robots))
+        .route("/llms.txt",            get(routes::seo::llms_txt))
+        .route("/sitemap.xml",         get(routes::seo::sitemap))
         // API
         .route("/api/register",        post(routes::api::register))
         .route("/api/newsletter",      post(routes::api::newsletter))
