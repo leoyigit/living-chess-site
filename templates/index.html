@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Living Chess - Interactive Chess Experience</title>
+<meta name="description" content="Living Chess - We turn chess into a live experiment. Teams play, roles shift, decisions collide, and every session produces real insight into collaboration and behaviour." />
+<meta property="og:title" content="Living Chess - Interactive Chess Experience" />
+<meta property="og:description" content="We turn chess into a live experiment. Teams play, roles shift, decisions collide." />
+<meta property="og:type" content="website" />
+<meta property="og:image" content="/static/assets/hero.webp" />
+<link rel="icon" type="image/png" href="/static/assets/favicon.png" />
+<link rel="apple-touch-icon" href="/static/assets/apple-touch-icon.png" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,300;0,400;0,500;0,600;1,400;1,500&family=DM+Serif+Display:ital@0;1&family=Space+Grotesk:wght@400;500;600;700&family=Hanken+Grotesk:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="/static/assets/living-chess.css" />
+<link rel="stylesheet" href="/static/assets/living-chess-patch.css" />
+</head>
+<body data-accent="{{ tweaks.accent }}" data-font="{{ tweaks.font }}" data-hero="{{ tweaks.hero }}" data-grain="{{ tweaks.grain }}">
+
+<div class="atmos" aria-hidden="true"></div>
+<div class="grain" aria-hidden="true"></div>
+
+<!-- ============ NAV ============ -->
+<header class="nav" id="nav">
+  <div class="nav__inner">
+    <a class="brand" href="#top" aria-label="Living Chess home">
+      <img class="brand__logo" src="/static/assets/logo.png" alt="Living Chess" height="32" />
+    </a>
+    <nav class="nav__links">
+      <a href="#team">Team</a>
+      <a href="#news">News</a>
+      <a href="/blog">Blog</a>
+      <a href="/techlab">TechLab</a>
+      <a href="#testplays">Testplays</a>
+    </nav>
+    <div class="nav__cta">
+      <a class="btn btn--ghost" href="#involved">Get Involved</a>
+      <a class="btn btn--gold" href="https://game.livingchess.net/auth" target="_blank" rel="noopener">
+        Join a Game
+        <svg viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
+    </div>
+    <button class="nav__burger" id="navBurger" aria-label="Open menu" aria-expanded="false" aria-controls="mobileMenu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<!-- ── Mobile menu overlay ───────────────────────────────────────────── -->
+<div class="mobile-menu" id="mobileMenu" role="dialog" aria-modal="true" aria-label="Navigation" aria-hidden="true">
+  <div class="mobile-menu__panel">
+    <nav class="mobile-menu__nav">
+      <a href="#how">How it works</a>
+      <a href="#team">Team</a>
+      <a href="#news">News</a>
+      <a href="/blog">Blog</a>
+      <a href="/techlab">TechLab</a>
+      <a href="#testplays">Testplays</a>
+    </nav>
+    <div class="mobile-menu__cta">
+      <a class="btn btn--ghost" href="#involved">Get Involved</a>
+      <a class="btn btn--gold" href="https://game.livingchess.net/auth" target="_blank" rel="noopener">
+        Join a Game
+        <svg viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
+    </div>
+    <div class="mobile-menu__social">
+      <a href="https://www.facebook.com/livingchessofficial/" target="_blank" rel="noopener" aria-label="Facebook">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+      </a>
+      <a href="https://www.instagram.com/livingchessofficial/" target="_blank" rel="noopener" aria-label="Instagram">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
+      </a>
+      <a href="https://www.linkedin.com/company/livingchess/" target="_blank" rel="noopener" aria-label="LinkedIn">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+      </a>
+    </div>
+  </div>
+</div>
+
+<main id="top">
+
+<!-- ============ HERO ============ -->
+<section class="hero" aria-label="Introduction">
+  <div class="hero__bg">
+    <img src="/static/assets/hero.webp" alt="Living Chess — a live performance on a physical board" />
+  </div>
+  <div class="hero__overlay"></div>
+  <div class="wrap hero__grid">
+    <div class="hero__copy">
+      <span class="eyebrow">A live social experiment · since 2024</span>
+      <h1>LIVING <em>CHESS</em></h1>
+      <p class="hero__sub">We turn chess into a live experiment. Teams play, roles shift, decisions collide, and every session produces real insight into collaboration and behaviour. It happens on physical boards, stages, in XR, in research labs — anywhere people can engage.</p>
+      <div class="hero__cta">
+        <a class="btn btn--gold" href="https://game.livingchess.net/auth" target="_blank" rel="noopener">
+          Explore the Project
+          <svg viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+        <a class="btn btn--ghost" href="#how">See how it works</a>
+      </div>
+      <div class="hero__stats">
+        <div class="hstat"><div class="hstat__k">Experience</div><div class="hstat__v">Not just observe</div></div>
+        <div class="hstat"><div class="hstat__k">Live sessions</div><div class="hstat__v">Sundays online</div></div>
+        <div class="hstat"><div class="hstat__k">Stages, XR</div><div class="hstat__v">&amp; research labs</div></div>
+      </div>
+    </div>
+
+    <div class="hero__board">
+      <div class="stage" id="stage" data-phase="1">
+        <div class="stage__frame"></div>
+        <svg id="board" viewBox="0 0 600 600" aria-label="Animated diagram of a Living Chess decision cycle"></svg>
+        <div class="stage__hud">
+          <span class="phase-pill" id="phasePill" data-k="1"><span class="dot"></span><span id="phaseText">01 · Suggestion</span></span>
+          <span class="phase-cycle" id="phaseCycle">CYCLE 001</span>
+        </div>
+        <div class="stage__tally" id="stageTally"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ HOW IT WORKS ============ -->
+<section class="section section--raised" id="how" aria-label="How it works">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow">The mechanic</span>
+      <div class="sec-head__top">
+        <h2 class="h-sec">How a single move <em>gets made</em></h2>
+      </div>
+      <p class="lede">No one player decides. A move travels through three stages — open suggestion, royal curation, and weighted voting. Step through a real cycle below.</p>
+    </div>
+
+    <div class="how__layout">
+      <div class="steps" id="steps">
+        <button class="step active" data-step="0">
+          <span class="step__bar"></span>
+          <span class="step__n">01</span>
+          <span><span class="step__t">Suggestion</span><span class="step__d">Anyone on the team proposes a move. The board fills with candidate ideas.</span></span>
+        </button>
+        <button class="step" data-step="1">
+          <span class="step__bar"></span>
+          <span class="step__n">02</span>
+          <span><span class="step__t">Curation</span><span class="step__d">The King — who never votes — selects exactly three proposals to advance.</span></span>
+        </button>
+        <button class="step" data-step="2">
+          <span class="step__bar"></span>
+          <span class="step__n">03</span>
+          <span><span class="step__t">Weighted vote</span><span class="step__d">Everyone votes. Influence scales with rank — a queen outweighs a pawn.</span></span>
+        </button>
+        <button class="step" data-step="3">
+          <span class="step__bar"></span>
+          <span class="step__n">04</span>
+          <span><span class="step__t">The move</span><span class="step__d">The weighted tally resolves. The piece moves. The cycle begins again.</span></span>
+        </button>
+      </div>
+      <div class="demo glass" id="demo"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ EXPERIMENTS ============ -->
+<section class="section" id="experiments" aria-label="The experiments">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow eyebrow--blue">The experiments</span>
+      <div class="sec-head__top">
+        <h2 class="h-sec">An ongoing study of <em>distributed choice</em></h2>
+      </div>
+      <p class="lede">Living Chess is a behavioral instrument. The same mechanic runs across human teams, AI-agent teams, and hybrid human–AI teams — and we watch how the decisions differ.</p>
+    </div>
+
+    <div class="timeline">
+      <article class="phase-card phase-card--now reveal">
+        <span class="phase-card__tag"><span class="live-dot"></span>Now running</span>
+        <h3>Agent versus agent</h3>
+        <p>Two teams of autonomous AI agents play the full three-stage cycle against each other. We log every suggestion, every royal cut, and every weighted ballot to map how synthetic groups converge — or fracture.</p>
+        <div class="phase-card__meta">
+          <div><span>Matches logged</span><b>128</b></div>
+          <div><span>Avg. cycle</span><b>42s</b></div>
+          <div><span>Teams</span><b>All-agent</b></div>
+        </div>
+      </article>
+      <article class="phase-card phase-card--next reveal">
+        <span class="phase-card__tag">Next phase</span>
+        <h3>Hybrid human–AI teams</h3>
+        <p>Humans and agents share a single board, controlling pieces side by side. When a pawn-agent and a queen-human disagree, whose weight wins — and does the team trust the outcome? Opening for testplays this season.</p>
+        <div class="phase-card__meta">
+          <div><span>Status</span><b>Recruiting</b></div>
+          <div><span>First run</span><b>Q3 2026</b></div>
+          <div><span>Teams</span><b>Hybrid</b></div>
+        </div>
+      </article>
+    </div>
+
+    <div class="questions">
+      <div class="qq reveal">
+        <span class="qq__n">Open question 01</span>
+        <blockquote>Does giving the King no vote make them more powerful, or less?</blockquote>
+      </div>
+      <div class="qq reveal">
+        <span class="qq__n">Open question 02</span>
+        <blockquote>When weight decides, do low-rank players stop trying — or organize?</blockquote>
+      </div>
+      <div class="qq reveal">
+        <span class="qq__n">Open question 03</span>
+        <blockquote>Can a team of agents be more democratic than a team of people?</blockquote>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ TESTPLAYS ============ -->
+<section class="section section--raised" id="testplays" aria-label="Testplays">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow">Testplays</span>
+      <div class="sec-head__top">
+        <h2 class="h-sec">Take a seat at the <em>living board</em></h2>
+      </div>
+      <p class="lede">Supporters get early access to online testplays of the platform. These sessions help us refine the mechanics, stress-test the system, and observe how groups make decisions as roles shift. If you want a seat, sign up — slots are limited.</p>
+    </div>
+
+    <div class="testplay__grid">
+      <div class="register glass">
+        <span class="label">Next Sunday session opens in</span>
+        <div class="countdown" id="countdown" aria-label="Countdown to next session">
+          <div class="cd-unit"><b id="cd-d">00</b><span>days</span></div>
+          <span class="cd-sep">:</span>
+          <div class="cd-unit"><b id="cd-h">00</b><span>hrs</span></div>
+          <span class="cd-sep">:</span>
+          <div class="cd-unit"><b id="cd-m">00</b><span>min</span></div>
+          <span class="cd-sep">:</span>
+          <div class="cd-unit"><b id="cd-s">00</b><span>sec</span></div>
+        </div>
+
+        <span class="label">Select a date (Sundays)</span>
+        <div class="dates" id="dates">
+          {% for d in session_dates %}
+          <button type="button"
+            class="date-opt{% if d.is_first %} sel{% endif %}{% if d.is_full %} full{% endif %}"
+            data-i="{{ d.index }}"
+            {% if d.is_full %}disabled{% endif %}>
+            <span class="date-opt__radio"></span>
+            <div class="date-opt__main">
+              <b>{{ d.label }}</b>
+              <span>18:00 CET · the living board</span>
+            </div>
+            <div class="date-opt__slots">
+              {% if d.is_full %}<b>Full</b>{% else %}<b>{{ d.left }}</b> of {{ d.total }} seats{% endif %}
+              <span class="slots-bar"><i class="{% if d.is_low %}low{% endif %}" style="width:{{ d.fill_pct }}%"></i></span>
+            </div>
+          </button>
+          {% endfor %}
+        </div>
+
+        <form class="reg-form" id="regForm" novalidate>
+          <div class="field"><label for="rn">Name</label><input id="rn" name="name" type="text" placeholder="Your name" required /></div>
+          <div class="field"><label for="re">Email</label><input id="re" name="email" type="email" placeholder="you@email.com" required /></div>
+          <div class="field full"><label for="rp">Piece preference</label>
+            <select id="rp" name="piece_pref">
+              <option>Surprise me — assign any piece</option>
+              <option>I'd like to be a Pawn (weight 1.0)</option>
+              <option>A minor piece (Knight / Bishop)</option>
+              <option>A major piece (Rook / Queen)</option>
+              <option>The King — I'll curate, not vote</option>
+            </select>
+          </div>
+          <button type="submit" class="btn btn--gold btn--block full" id="regBtn">Reserve my seat</button>
+        </form>
+        <div class="honest">
+          <svg viewBox="0 0 24 24" fill="none"><path d="M12 2l2.4 6.9H22l-6 4.4 2.3 6.9L12 16l-6.3 4.2L8 13.3 2 8.9h7.6z" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/></svg>
+          <span>Seats are genuinely limited by piece count — we cap the room, we don't manufacture scarcity. Can't make it? Your reservation rolls to the next open Saturday.</span>
+        </div>
+      </div>
+
+      <aside class="testplay__aside">
+        <div class="aside-card glass">
+          <h4>What a session looks like</h4>
+          <ul class="aside-list">
+            <li><span class="ic">Start</span><span>Pieces assigned. You meet your team and learn your role weight.</span></li>
+            <li><span class="ic">Play</span><span>First cycle begins — suggest, watch the King curate, cast your weighted vote.</span></li>
+            <li><span class="ic">Debrief</span><span>The game resolves. We review the decisions together over the session record.</span></li>
+          </ul>
+        </div>
+        <div class="aside-card glass">
+          <h4>Come as you are</h4>
+          <ul class="aside-list">
+            <li><span class="ic">↳</span><span>No chess rating required. Pawns shape the game as much as queens.</span></li>
+            <li><span class="ic">↳</span><span>Remote-friendly. Everything happens on the live board.</span></li>
+            <li><span class="ic">↳</span><span>Researchers welcome to observe — just say so when you register.</span></li>
+          </ul>
+        </div>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<!-- ============ GET INVOLVED ============ -->
+<section class="section" id="involved" aria-label="Get involved">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow">Get involved</span>
+      <div class="sec-head__top">
+        <h2 class="h-sec">Four ways to <em>move with us</em></h2>
+      </div>
+      <p class="lede">Whether you want to play, study, sponsor, or fund the work — there's a clear way in.</p>
+    </div>
+
+    <div class="tracks">
+      <div class="track reveal">
+        <div class="track__ic"><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="8" r="3.4" stroke="currentColor" stroke-width="1.5"/><path d="M5 20c0-3.6 3.1-6 7-6s7 2.4 7 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+        <span class="track__tag">Individuals</span>
+        <h3>Players &amp; supporters</h3>
+        <p>Take a seat at a testplay, or back the project as a recurring supporter. Either way, you become part of the team that decides.</p>
+        <a class="track__link" href="#testplays">Join a game →</a>
+      </div>
+      <div class="track reveal">
+        <div class="track__ic"><svg viewBox="0 0 24 24" fill="none"><path d="M4 20V9l8-5 8 5v11" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path d="M4 20h16M9 20v-6h6v6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+        <span class="track__tag">Institutions</span>
+        <h3>Cultural &amp; academic</h3>
+        <p>Host a Living Chess performance, co-design a study, or bring the instrument to your students, festival, or research group.</p>
+        <a class="track__link" href="#newsletter">Start a conversation →</a>
+      </div>
+      <div class="track reveal">
+        <div class="track__ic"><svg viewBox="0 0 24 24" fill="none"><rect x="3.5" y="7.5" width="17" height="12" rx="2" stroke="currentColor" stroke-width="1.5"/><path d="M8.5 7.5V6a2 2 0 012-2h3a2 2 0 012 2v1.5M3.5 12h17" stroke="currentColor" stroke-width="1.5"/></svg></div>
+        <span class="track__tag">Companies</span>
+        <h3>Teams &amp; partners</h3>
+        <p>Use the board as a mirror for how your team makes decisions, or partner on an agentic-AI experiment with measurable outcomes.</p>
+        <a class="track__link" href="#newsletter">Partner with us →</a>
+      </div>
+      <div class="track reveal">
+        <div class="track__ic"><svg viewBox="0 0 24 24" fill="none"><path d="M12 3v18M7 7c0-2 2-3 5-3s5 1 5 3-2 3-5 3-5 1-5 3 2 3 5 3 5-1 5-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+        <span class="track__tag">Funders</span>
+        <h3>Grants &amp; patrons</h3>
+        <p>Fund the next phase of research. We share methodology, anonymized records, and findings openly with everyone who backs the work.</p>
+        <a class="track__link" href="#newsletter">Fund the research →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ TEAM ============ -->
+<section class="section section--raised" id="team" aria-label="Team">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow eyebrow--blue">The people</span>
+      <div class="sec-head__top">
+        <h2 class="h-sec">A small team behind the <em>living board</em></h2>
+      </div>
+      <p class="lede">Designers, researchers, and game-makers who built the instrument from scratch.</p>
+    </div>
+    <div class="team" id="team-grid">
+      {% for m in team %}
+      <div class="member">
+        <div class="member__photo">
+          {% if m.is_king %}
+          <svg class="king-crown" viewBox="0 0 24 24" fill="none">
+            <path d="M4 8l3.5 3L12 5l4.5 6L20 8l-1.5 10h-13z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/>
+          </svg>
+          {% endif %}
+          <span class="ph">{{ m.initials }}</span>
+        </div>
+        <div class="member__name">{{ m.name }}</div>
+        <div class="member__role{% if m.is_blue %} blue{% endif %}">{{ m.role }}</div>
+        <div class="member__bio">{{ m.bio }}</div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<!-- ============ NEWS ============ -->
+<section class="section" id="news" aria-label="News and blog">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow">News &amp; field notes</span>
+      <div class="sec-head__top">
+        <h2 class="h-sec">From the stage &amp; the <em>lab</em></h2>
+      </div>
+    </div>
+
+    <div class="news">
+      <article class="news-feature glass">
+        <div class="news-feature__media">
+          <span class="vtag">Game record · 24:11</span>
+          <button class="play" aria-label="Play game record">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+          </button>
+        </div>
+        <div class="news-feature__body">
+          <span class="news-item__cat">Game record</span>
+          <h3>Cycle 47: the pawns mutiny in round three</h3>
+          <p>A full replay with voting-round commentary — including the moment a coordinated pawn bloc outweighed the queen, and the King's curation that made it possible.</p>
+        </div>
+      </article>
+
+      <div class="news-list">
+        {% for item in news %}
+        <article class="news-item">
+          <div class="news-item__top">
+            <span class="news-item__cat">{{ item.category }}</span>
+            <span class="news-item__date">{{ item.date }}</span>
+          </div>
+          <h4>{{ item.title }}</h4>
+          <p>{{ item.excerpt }}</p>
+          {% if let Some(url) = item.link %}
+          <a class="news-item__link" href="{{ url }}" target="_blank" rel="noopener">Read more →</a>
+          {% endif %}
+        </article>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ NEWSLETTER ============ -->
+<section class="section section--raised" id="newsletter" aria-label="Newsletter">
+  <div class="wrap newsletter">
+    <span class="eyebrow" style="justify-content:center">Stay in the loop</span>
+    <h2>Updates about playtests, research calls &amp; <em>what actually happens</em>.</h2>
+    <p class="lede" style="margin-inline:auto">If you want updates about playtests, platform access, research calls, screenings, or public sessions, leave your email — no spam, no recycled newsletters — just the things that matter for anyone following the project closely.</p>
+    <form class="news-form" id="newsForm" novalidate>
+      <input type="email" id="newsEmail" name="email" placeholder="Email address" aria-label="Email address" required />
+      <button type="submit" class="btn btn--gold" id="newsBtn">Join</button>
+    </form>
+    <p class="news-promise"><b>No spam. No recycled newsletters.</b> Unsubscribe in one click, anytime.</p>
+  </div>
+</section>
+
+</main>
+
+<!-- ============ FOOTER ============ -->
+<footer class="footer">
+  <div class="wrap">
+    <div class="footer__grid">
+      <div class="footer__brand">
+        <a class="brand" href="#top">
+          <img class="brand__logo" src="/static/assets/logo.png" alt="Living Chess" height="28" />
+        </a>
+        <p>We turn chess into a live experiment. Part game, part performance, part research instrument. It happens on physical boards, stages, in XR, and in research labs.</p>
+        <div class="footer__social">
+          <a href="https://www.facebook.com/livingchessofficial/" target="_blank" rel="noopener" aria-label="Facebook">
+            <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg>
+          </a>
+          <a href="https://www.instagram.com/livingchessofficial/" target="_blank" rel="noopener" aria-label="Instagram">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
+          </a>
+          <a href="https://www.linkedin.com/company/livingchess/" target="_blank" rel="noopener" aria-label="LinkedIn">
+            <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z"/><circle cx="4" cy="4" r="2"/></svg>
+          </a>
+          <a href="https://www.youtube.com/@livingchessofficial" target="_blank" rel="noopener" aria-label="YouTube">
+            <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18"><path d="M22.54 6.42a2.78 2.78 0 00-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46A2.78 2.78 0 001.46 6.42 29 29 0 001 12a29 29 0 00.46 5.58 2.78 2.78 0 001.95 1.96C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 001.95-1.96A29 29 0 0023 12a29 29 0 00-.46-5.58z"/><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02" fill="white"/></svg>
+          </a>
+        </div>
+      </div>
+      <div class="footer__col">
+        <h5>Explore</h5>
+        <a href="#how">How it works</a>
+        <a href="#experiments">Experiments</a>
+        <a href="#testplays">Testplays</a>
+        <a href="#news">News &amp; events</a>
+        <a href="#team">Team</a>
+      </div>
+      <div class="footer__col">
+        <h5>Get involved</h5>
+        <a href="https://game.livingchess.net/auth" target="_blank" rel="noopener">Join a Game</a>
+        <a href="#involved">For institutions</a>
+        <a href="#involved">For companies</a>
+        <a href="#involved">For funders</a>
+        <a href="https://livingchess.net/support">Support</a>
+      </div>
+      <div class="footer__col">
+        <h5>Connect</h5>
+        <a href="#newsletter">Newsletter</a>
+        <a href="https://livingchess.net/blog">Blog</a>
+        <a href="https://livingchess.net/techlab">TechLab</a>
+        <a href="https://www.livingchess.net">livingchess.net</a>
+      </div>
+    </div>
+    <div class="footer__bottom">
+      <span>© 2026 Living Chess. All rights reserved.</span>
+      <span>Sundays · online · the living board</span>
+    </div>
+  </div>
+</footer>
+
+<!-- ============ TWEAKS PANEL ============ -->
+<aside class="tweaks" id="tweaks" aria-label="Tweaks panel">
+  <div class="tweaks__head">
+    <b>Tweaks</b>
+    <button id="tweaksClose" aria-label="Close tweaks">✕</button>
+  </div>
+  <div class="tweaks__body">
+    <div class="tw-group">
+      <span>Accent</span>
+      <div class="tw-sw" id="tw-accent">
+        <button data-v="duo"   title="Gold + Blue"      style="background:linear-gradient(135deg,#E8B341 50%,#6B8AFF 50%)"></button>
+        <button data-v="gold"  title="All gold"          style="background:#E8B341"></button>
+        <button data-v="amber" title="Amber + Teal"      style="background:linear-gradient(135deg,#F0A92E 50%,#3FB8A6 50%)"></button>
+        <button data-v="rose"  title="Rose gold + Slate" style="background:linear-gradient(135deg,#E0A48B 50%,#8893A8 50%)"></button>
+      </div>
+    </div>
+    <div class="tw-group">
+      <span>Headline type</span>
+      <div class="tw-opts" id="tw-font">
+        <button class="tw-opt" data-v="serif">Spectral</button>
+        <button class="tw-opt" data-v="didone">Didone</button>
+        <button class="tw-opt" data-v="grotesk">Grotesk</button>
+      </div>
+    </div>
+    <div class="tw-group">
+      <span>Hero animation</span>
+      <div class="tw-opts" id="tw-hero">
+        <button class="tw-opt" data-v="flow">Flow</button>
+        <button class="tw-opt" data-v="calm">Calm</button>
+        <button class="tw-opt" data-v="off">Off</button>
+      </div>
+    </div>
+    <div class="tw-group">
+      <span>Film grain</span>
+      <div class="tw-opts" id="tw-grain">
+        <button class="tw-opt" data-v="on">On</button>
+        <button class="tw-opt" data-v="off">Off</button>
+      </div>
+    </div>
+  </div>
+</aside>
+
+<!-- Tweaks defaults (server-rendered) -->
+<script>window.__TWEAKS = {{ tweaks_json|safe }};</script>
+<script src="/static/assets/hero.js"></script>
+<script src="/static/assets/walkthrough.js"></script>
+<script src="/static/assets/site.js"></script>
+</body>
+</html>

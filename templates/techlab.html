@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>TechLab — Living Chess</title>
+<meta name="description" content="The technical infrastructure behind Living Chess — platform architecture, XR experiments, AI agent systems, and open research." />
+<link rel="icon" type="image/png" href="/static/assets/favicon.png" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,300;0,400;0,500;0,600;1,400;1,500&family=DM+Serif+Display:ital@0;1&family=Space+Grotesk:wght@400;500;600;700&family=Hanken+Grotesk:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="/static/assets/living-chess.css" />
+<link rel="stylesheet" href="/static/assets/living-chess-patch.css" />
+<link rel="stylesheet" href="/static/assets/blog.css" />
+</head>
+<body data-accent="amber" data-font="serif" data-grain="off">
+<div class="atmos" aria-hidden="true"></div>
+
+<!-- NAV -->
+<header class="nav is-stuck" id="nav">
+  <div class="nav__inner">
+    <a class="brand" href="/" aria-label="Living Chess home">
+      <img class="brand__logo" src="/static/assets/logo.png" alt="Living Chess" height="32" />
+    </a>
+    <nav class="nav__links">
+      <a href="/#team">Team</a>
+      <a href="/blog">News</a>
+      <a href="/techlab" aria-current="page" style="color:var(--gold)">TechLab</a>
+      <a href="/#testplays">Testplays</a>
+    </nav>
+    <div class="nav__cta">
+      <a class="btn btn--ghost" href="/#involved">Get Involved</a>
+      <a class="btn btn--gold" href="https://game.livingchess.net/auth" target="_blank" rel="noopener">
+        Join a Game
+        <svg viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
+    </div>
+  </div>
+</header>
+
+<main class="blog-main">
+  <div class="wrap">
+
+    <div class="blog-header">
+      <span class="eyebrow eyebrow--blue">Technical infrastructure</span>
+      <h1 class="h-sec">Tech<em>Lab</em></h1>
+      <p class="lede">The systems, architecture, and experiments that power Living Chess — from the online game platform to XR prototypes and AI agent research.</p>
+    </div>
+
+    <!-- Platform -->
+    <section class="tl-section section">
+      <div class="sec-head">
+        <span class="eyebrow">Platform</span>
+        <div class="sec-head__top">
+          <h2 class="h-sec">The online <em>game platform</em></h2>
+        </div>
+        <p class="lede">The platform at <a href="https://game.livingchess.net" target="_blank" rel="noopener" style="color:var(--gold)">game.livingchess.net</a> runs the full Living Chess decision cycle in real time — suggestion, curation, weighted vote, and move execution — for live sessions with distributed teams.</p>
+      </div>
+      <div class="tl-cards">
+        <div class="tl-card glass">
+          <span class="tl-card__icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="28" height="28"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+          </span>
+          <h3>Real-time sessions</h3>
+          <p>Live game cycles with role-based access — each participant controls exactly one piece, with weighted voting reflected instantly across all clients.</p>
+        </div>
+        <div class="tl-card glass">
+          <span class="tl-card__icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="28" height="28"><circle cx="12" cy="12" r="3"/><path d="M12 2v4M12 18v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M2 12h4M18 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/></svg>
+          </span>
+          <h3>Weighted decision engine</h3>
+          <p>Every vote carries piece-rank weight. The engine tallies suggestions in real time and resolves each cycle deterministically.</p>
+        </div>
+        <div class="tl-card glass">
+          <span class="tl-card__icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="28" height="28"><path d="M9 3H5a2 2 0 00-2 2v4m6-6h10a2 2 0 012 2v4M9 3v18m0 0h10a2 2 0 002-2V9M9 21H5a2 2 0 01-2-2V9m0 0h18"/></svg>
+          </span>
+          <h3>Session logging</h3>
+          <p>Full game records — every suggestion, curation cut, vote, and outcome — stored for research analysis and replay.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- XR -->
+    <section class="tl-section section section--raised">
+      <div class="wrap">
+        <div class="sec-head">
+          <span class="eyebrow eyebrow--blue">Spatial computing</span>
+          <div class="sec-head__top">
+            <h2 class="h-sec">XR &amp; <em>immersive prototypes</em></h2>
+          </div>
+          <p class="lede">Living Chess extends beyond screens. We prototype immersive versions of the game in 3D and XR environments, exploring how spatial presence changes group decision-making dynamics.</p>
+        </div>
+        <div class="tl-cards">
+          <div class="tl-card glass">
+            <span class="tl-card__icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="28" height="28"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/></svg>
+            </span>
+            <h3>3D board prototypes</h3>
+            <p>Interactive 3D representations of the chessboard built by Asmar Khalilli, placing participants in a spatial decision environment.</p>
+          </div>
+          <div class="tl-card glass">
+            <span class="tl-card__icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="28" height="28"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/></svg>
+            </span>
+            <h3>Research contexts</h3>
+            <p>Deployed in academic and theatre settings to observe how physical embodiment and spatial awareness alter collective behaviour.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- AI Research -->
+    <section class="tl-section section">
+      <div class="sec-head">
+        <span class="eyebrow">AI Research</span>
+        <div class="sec-head__top">
+          <h2 class="h-sec">Agent experiments &amp; <em>AI systems</em></h2>
+        </div>
+        <p class="lede">We run Living Chess with autonomous AI agents to study how synthetic groups converge — or fracture — under the same three-stage decision mechanic that human teams use.</p>
+      </div>
+      <div class="tl-cards">
+        <div class="tl-card glass">
+          <span class="tl-card__icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="28" height="28"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
+          </span>
+          <h3>Agent vs. agent</h3>
+          <p>Two fully autonomous teams play complete games. Every suggestion, curation cut, and ballot is logged for behavioural analysis.</p>
+          <div class="tl-stat"><b>128</b><span>matches logged</span></div>
+        </div>
+        <div class="tl-card glass">
+          <span class="tl-card__icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="28" height="28"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg>
+          </span>
+          <h3>Hybrid human–AI</h3>
+          <p>Humans and agents share a board. When a pawn-agent and a queen-human disagree, whose weight wins? Opening for testplays Q3 2026.</p>
+          <div class="tl-stat"><b>Q3 2026</b><span>first hybrid run</span></div>
+        </div>
+        <div class="tl-card glass">
+          <span class="tl-card__icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="28" height="28"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+          </span>
+          <h3>Behavioural data</h3>
+          <p>All sessions produce structured logs — suggestion diversity, curation patterns, vote distribution, and outcome predictability scores.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="tl-cta section">
+      <div class="glass tl-cta__inner">
+        <h2 class="h-sec" style="font-size:clamp(26px,3vw,40px)">Interested in the <em>research</em>?</h2>
+        <p class="lede" style="margin-top:14px">We collaborate with academic institutions, tech teams, and independent researchers. If you want to observe, co-design, or run an experiment — reach out.</p>
+        <div style="display:flex;gap:14px;flex-wrap:wrap;margin-top:28px">
+          <a class="btn btn--gold" href="/#newsletter">Get research updates</a>
+          <a class="btn btn--ghost" href="/#involved">Partner with us</a>
+        </div>
+      </div>
+    </section>
+
+  </div>
+</main>
+
+<footer class="footer">
+  <div class="wrap">
+    <div class="footer__bottom" style="border-top:none;padding-top:0;margin-top:0;">
+      <span>© 2026 Living Chess. All rights reserved.</span>
+      <a href="/" style="font-family:var(--mono);font-size:11.5px;color:var(--faint)">← Back to home</a>
+    </div>
+  </div>
+</footer>
+
+<script src="/static/assets/site.js"></script>
+</body>
+</html>
