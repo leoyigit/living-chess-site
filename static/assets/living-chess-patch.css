@@ -2,6 +2,13 @@
    LIVING CHESS — patch: real hero image, logo, social icons
    ============================================================ */
 
+/* ── Phase steps — space between title and description ──────── */
+.step__t::after { content: " "; }
+
+/* ── Hero stats — keep all three on one row ─────────────────── */
+.hero__stats { flex-wrap: nowrap; }
+.hstat { white-space: nowrap; }
+
 /* ── Brand logo image ───────────────────────────────────────── */
 .brand__logo {
   height: 32px;
@@ -92,6 +99,60 @@
   transform: translateY(-2px);
 }
 
+/* ── News grid: allow sticky left column ─────────────────────── */
+.news { align-items: start; }
+
+/* ── Video feature: sticky + 16:9 ───────────────────────────── */
+.news-feature {
+  position: sticky;
+  top: 96px;
+}
+.news-feature__media {
+  aspect-ratio: 16 / 9;
+  flex: none;
+  min-height: unset;
+}
+
+/* ── News list: timeline style ───────────────────────────────── */
+.news-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  background: transparent;
+  border: none;
+  border-radius: 0;
+  overflow: visible;
+  padding-left: 20px;
+  border-left: 2px solid var(--line);
+}
+
+.news-item {
+  background: transparent;
+  padding: 0 0 26px 20px;
+  position: relative;
+  cursor: default;
+  transition: none;
+}
+
+.news-item::before {
+  content: "";
+  position: absolute;
+  left: -5px;
+  top: 5px;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--gold);
+  box-shadow: 0 0 0 3px var(--bg-1);
+  transition: box-shadow .2s;
+}
+.news-item:hover::before { box-shadow: 0 0 0 3px var(--bg-1), 0 0 8px var(--gold); }
+.news-item:hover { background: transparent; }
+.news-item__top { margin-bottom: 5px; gap: 8px; }
+.news-item__date { margin-left: 0; }
+.news-item h4 { font-size: 15px; line-height: 1.3; }
+.news-item p  { font-size: 12.5px; margin-top: 4px; line-height: 1.5; }
+
 /* ── News item links ─────────────────────────────────────────── */
 .news-item__link {
   display: inline-flex;
@@ -107,46 +168,74 @@
 
 .news-item:hover .news-item__link { gap: 9px; }
 
-/* ── Team cards — equal heights across each row ──────────────── */
+/* ── Team cards — compact horizontal layout ──────────────────── */
+.team {
+  grid-template-columns: repeat(2, 1fr) !important;
+  gap: 16px !important;
+}
+
 .member {
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-columns: 52px 1fr;
+  grid-template-rows: auto auto 1fr;
+  column-gap: 16px;
+  align-items: start;
+  background: var(--bg-2);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 20px;
+  transition: border-color .25s, box-shadow .25s;
+}
+.member:hover {
+  border-color: var(--gold);
+  box-shadow: 0 4px 24px rgba(0,0,0,.18);
 }
 
-/* Name: always exactly 2 lines tall so cards in a row stay aligned */
+.member__photo {
+  grid-column: 1;
+  grid-row: 1 / span 3;
+  aspect-ratio: 1 !important;
+  width: 52px !important;
+  height: 52px !important;
+  border-radius: 50% !important;
+  transform: none !important;
+}
+.member__photo::after { display: none !important; }
+.member__photo .ph { font-size: 15px !important; color: var(--faint) !important; }
+.member__photo .king-crown {
+  top: -5px; right: -5px;
+  width: 15px; height: 15px;
+  opacity: 1 !important;
+}
+.member:hover .member__photo { transform: none !important; border-color: transparent !important; }
+
 .member__name {
+  grid-column: 2; grid-row: 1;
   font-family: var(--display);
-  font-size: 18px;
-  margin-top: 14px;
-  min-height: 2.4em;
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
+  font-size: 16px;
+  margin-top: 0;
+  min-height: unset;
+  display: block;
+  overflow: visible;
 }
-
-/* Role: always exactly 2 lines tall */
 .member__role {
+  grid-column: 2; grid-row: 2;
   font-family: var(--mono);
-  font-size: 11.5px;
+  font-size: 10.5px;
   letter-spacing: .04em;
-  margin-top: 3px;
-  min-height: 2.8em;
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
+  margin-top: 2px;
+  min-height: unset;
+  display: block;
+  overflow: visible;
 }
-
-/* Bio: exactly 4 lines, fills remaining card space */
 .member__bio {
-  font-size: 12.5px;
+  grid-column: 2; grid-row: 3;
+  font-size: 12px;
   color: var(--faint);
-  margin-top: 6px;
-  line-height: 1.5;
-  flex: 1;
+  margin-top: 10px;
+  line-height: 1.55;
   display: -webkit-box;
-  -webkit-line-clamp: 4;
+  -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
@@ -297,61 +386,9 @@
   .hero h1 { font-size: clamp(44px, 12vw, 72px); }
 }
 
-/* ── Team: horizontal rows on mobile ────────────────────────── */
-@media (max-width: 900px) {
-  .team {
-    grid-template-columns: 1fr !important;
-    gap: 10px;
-  }
-
-  .member {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    gap: 16px;
-    background: var(--panel);
-    border: 1px solid var(--line);
-    border-radius: 14px;
-    padding: 14px 16px;
-  }
-
-  /* Square avatar on the left */
-  .member__photo {
-    width: 72px;
-    height: 72px;
-    aspect-ratio: 1 !important;
-    border-radius: 12px;
-    flex: none;
-    transform: none !important;
-  }
-  .member:hover .member__photo {
-    transform: none !important;
-  }
-  .member__photo .ph {
-    font-size: 22px;
-  }
-
-  /* Text content on the right */
-  .member__name {
-    margin-top: 0;
-    font-size: 16px;
-    min-height: unset !important;
-    -webkit-line-clamp: unset !important;
-    display: block !important;
-  }
-  .member__role {
-    margin-top: 2px;
-    min-height: unset !important;
-    -webkit-line-clamp: unset !important;
-    display: block !important;
-    font-size: 11px;
-  }
-  .member__bio {
-    margin-top: 4px;
-    font-size: 12px;
-    -webkit-line-clamp: 2 !important;
-    max-width: none;
-  }
+/* ── Team: single column on mobile ──────────────────────────── */
+@media (max-width: 680px) {
+  .team { grid-template-columns: 1fr !important; }
 }
 
 /* ═══════════════════════════════════════════════════════════════
@@ -711,7 +748,12 @@ html[data-theme="light"] .hero .btn--ghost:hover {
   background: rgba(0,0,0,.06);
 }
 
-/* ── Team member photos ── */
+/* ── Team cards light mode ── */
+html[data-theme="light"] .member {
+  background: #fff;
+  border-color: rgba(0,0,0,.10);
+  box-shadow: 0 1px 4px rgba(0,0,0,.06);
+}
 html[data-theme="light"] .member__photo {
   background: var(--bg-2);
   border-color: rgba(0,0,0,.12);
