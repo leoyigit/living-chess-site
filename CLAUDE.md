@@ -81,6 +81,14 @@ The app is deployed via Docker (see `Dockerfile`). Railway builds the image and 
 
 **Static files & content:** `static/` and `content/` are copied into the Docker image at build time. The Nixpacks default only copies the binary, so a custom `Dockerfile` is required.
 
+**Manual deploy via CLI (when auto-deploy from GitHub doesn't trigger):**
+```bash
+npx @railway/cli@latest login   # opens browser auth
+npx @railway/cli@latest link    # select the living-chess-site project
+npx @railway/cli@latest up      # deploy current branch
+```
+Run these from the project root. `railway` is not installed globally — always use `npx @railway/cli@latest`.
+
 **Common 502 causes:**
 - Target port in Railway Settings → Networking doesn't match `PORT` — fix by editing the domain entry and setting the correct port
 - `[[deploy.environmentVariables]]` in `railway.toml` is not a supported field — never use it to inject env vars; set them in the Railway dashboard Variables tab instead

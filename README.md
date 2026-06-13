@@ -130,6 +130,16 @@ Railway builds the `Dockerfile`, which produces a minimal Debian image containin
 
 **Variables:** Never set `PORT` manually in Railway's Variables tab — Railway injects it automatically based on the networking target port. Do not use `[[deploy.environmentVariables]]` in `railway.toml`; it is not a supported field.
 
+**Manual deploy via CLI** (when auto-deploy from GitHub doesn't trigger):
+
+```bash
+npx @railway/cli@latest login   # opens browser auth
+npx @railway/cli@latest link    # select living-chess-site project
+npx @railway/cli@latest up      # deploy current branch
+```
+
+> `railway` is not installed globally — always use `npx @railway/cli@latest`.
+
 For a custom VPS:
 
 ```bash
