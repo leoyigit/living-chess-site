@@ -3,6 +3,9 @@ title: "CreateCulture Lab Sprint, Vilnius"
 date: "2024-03-15"
 category: "Sprint"
 excerpt: "The first sprint at CreateCulture Space marked a practical beginning — building the team, outlining structure, and gaining access to the accelerator program."
+link: "https://createculture.studio/"
+author: "Leo Yiğit Ekiz"
+author_role: "Creative Director & System Architect"
 ---
 
 ## CreateCulture Lab Sprint — Vilnius

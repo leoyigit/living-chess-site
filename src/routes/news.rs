@@ -2,44 +2,44 @@ use askama::Template;
 use askama_axum::IntoResponse;
 use axum::{extract::Path, http::StatusCode, response::Response};
 
-use crate::blog::{self, BlogPost};
+use crate::news::{self, NewsPost};
 
 #[derive(Template)]
-#[template(path = "blog_list.html")]
-struct BlogListTemplate {
-    posts:        Vec<BlogPost>,
+#[template(path = "news_list.html")]
+struct NewsListTemplate {
+    posts:        Vec<NewsPost>,
     filter_label: Option<String>,
 }
 
 #[derive(Template)]
-#[template(path = "blog_post.html")]
-struct BlogPostTemplate {
-    post:      BlogPost,
-    by_author: Vec<BlogPost>,
+#[template(path = "news_post.html")]
+struct NewsPostTemplate {
+    post:      NewsPost,
+    by_author: Vec<NewsPost>,
 }
 
 pub async fn list() -> impl IntoResponse {
-    BlogListTemplate { posts: blog::all_posts(), filter_label: None }
+    NewsListTemplate { posts: news::all_posts(), filter_label: None }
 }
 
 pub async fn by_author(Path(author_slug): Path<String>) -> Response {
     use axum::response::IntoResponse as _;
-    let posts = blog::posts_by_author(&author_slug);
+    let posts = news::posts_by_author(&author_slug);
     let filter_label = posts.first().map(|p| p.author.clone());
-    BlogListTemplate { posts, filter_label }.into_response()
+    NewsListTemplate { posts, filter_label }.into_response()
 }
 
 pub async fn post(Path(slug): Path<String>) -> Response {
     use axum::response::IntoResponse as _;
-    match blog::find_post(&slug) {
+    match news::find_post(&slug) {
         Some(post) => {
             let author_slug = post.author_slug.clone();
-            let by_author = blog::posts_by_author(&author_slug)
+            let by_author = news::posts_by_author(&author_slug)
                 .into_iter()
                 .filter(|p| p.slug != slug)
                 .take(3)
                 .collect();
-            BlogPostTemplate { post, by_author }.into_response()
+            NewsPostTemplate { post, by_author }.into_response()
         }
         None => (StatusCode::NOT_FOUND, "Post not found").into_response(),
     }

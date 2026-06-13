@@ -3,6 +3,9 @@ title: "7th KISMIF Conference in Porto"
 date: "2024-07-10"
 category: "Conference"
 excerpt: "Azad Heydarov presented Exploring Collective Decision-Making Through the Living Chessboard at the DIY Cultures, Democracy and Creative Participation conference."
+link: "https://paulaguerra.pt/wp-content/uploads/2025/08/Guerra-Bennett-2025.-KISMIF-2024_-Book-of-Abstracts-1.pdf"
+author: "Azad Heydarov"
+author_role: "CEO & Co-Founder"
 ---
 
 ## KISMIF 2024 — Porto

@@ -3,6 +3,9 @@ title: "Arqus International Innovators Awards"
 date: "2024-10-15"
 category: "Award"
 excerpt: "Living Chess was selected as a finalist of the Arqus International Innovators Award 2024, representing the University of Wrocław under the title Intertwining Chess with Theatre."
+link: "https://arqus-alliance.eu/event/finals-international-innovators-award-2024-vote/"
+author: "Azad Heydarov"
+author_role: "CEO & Co-Founder"
 ---
 
 ## Arqus International Innovators Awards 2024

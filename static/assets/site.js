@@ -8,14 +8,47 @@
 
   /* ---------- nav stuck ---------- */
   const nav = $("#nav");
+  // Inner pages: always show the frosted nav bar
+  if (window.location.pathname !== "/") nav?.classList.add("is-stuck");
   const onScroll = () => nav.classList.toggle("is-stuck", window.scrollY > 24);
   onScroll(); window.addEventListener("scroll", onScroll, { passive: true });
+
+  /* ---------- active nav link ---------- */
+  const path = window.location.pathname;
+  $$(".nav__links a, .mobile-menu__nav a").forEach(a => {
+    const href = a.getAttribute("href");
+    if (href && !href.startsWith("/#") && href !== "/" && path.startsWith(href)) {
+      a.classList.add("nav-active");
+    }
+  });
 
   /* ---------- reveal on scroll ---------- */
   const io = new IntersectionObserver((es) => {
     es.forEach(e => { if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); } });
-  }, { threshold: 0.14, rootMargin: "0px 0px -8% 0px" });
+  }, { threshold: 0.12, rootMargin: "0px 0px -5% 0px" });
+
+  // Observe explicitly-marked reveal elements
   $$(".reveal").forEach(el => io.observe(el));
+
+  // Section headers: container gets .in → CSS cascades to children
+  $$(".sec-head").forEach(el => io.observe(el));
+
+  // Auto-stagger children inside .stagger containers
+  $$(".stagger").forEach(container => {
+    Array.from(container.children).forEach((child, i) => {
+      if (!child.classList.contains("reveal")) child.classList.add("reveal");
+      child.dataset.delay = String(Math.min(i + 1, 8));
+      io.observe(child);
+    });
+  });
+
+  // Subtle parallax on the atmospheric gradient
+  const atmos = $(".atmos");
+  if (atmos) {
+    window.addEventListener("scroll", () => {
+      atmos.style.transform = `translateY(${window.scrollY * 0.12}px)`;
+    }, { passive: true });
+  }
 
   /* ---------- countdown to next Saturday 18:00 CET (UTC+1) ---------- */
   function nextSession(from) {
@@ -190,7 +223,7 @@
   const panel  = $("#tweaks");
   const open   = () => panel.classList.add("open");
   const close  = () => panel.classList.remove("open");
-  $("#tweaksClose").addEventListener("click", close);
+  $("#tweaksClose")?.addEventListener("click", close);
 
   window.addEventListener("message", e => {
     const t = e.data && e.data.type;
@@ -198,6 +231,53 @@
     if (t === "__deactivate_edit_mode") close();
   });
   try { window.parent.postMessage({ type: "__edit_mode_available" }, "*"); } catch (_) {}
+
+  /* ---------- blog: table of contents + active heading ---------- */
+  const tocList   = $("#tocList");
+  const tocToggle = $("#tocToggle");
+  const tocNav    = $("#tocNav");
+  const article   = $("#articleBody");
+  if (tocList && article) {
+    // Build TOC from h2/h3 headings
+    const headings = $$("h2, h3", article);
+    headings.forEach((h, i) => {
+      if (!h.id) h.id = "section-" + i;
+      const li = document.createElement("li");
+      li.className = "toc-item toc-item--" + h.tagName.toLowerCase();
+      const a = document.createElement("a");
+      a.href = "#" + h.id;
+      a.textContent = h.textContent;
+      li.appendChild(a);
+      tocList.appendChild(li);
+    });
+
+    // Remove TOC sidebar if no headings
+    if (headings.length === 0) {
+      document.querySelector(".article-toc")?.remove();
+    }
+
+    // Highlight active heading on scroll
+    const tocLinks = $$("a", tocList);
+    const io2 = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          tocLinks.forEach(a => a.classList.remove("is-active"));
+          const active = tocList.querySelector(`a[href="#${e.target.id}"]`);
+          if (active) active.classList.add("is-active");
+        }
+      });
+    }, { rootMargin: "-20% 0px -70% 0px" });
+    headings.forEach(h => io2.observe(h));
+
+    // Toggle TOC
+    if (tocToggle) {
+      tocToggle.addEventListener("click", () => {
+        const expanded = tocToggle.getAttribute("aria-expanded") === "true";
+        tocToggle.setAttribute("aria-expanded", String(!expanded));
+        tocNav?.classList.toggle("is-hidden", expanded);
+      });
+    }
+  }
 
   /* ---------- mobile hamburger menu ---------- */
   const burger     = $("#navBurger");
@@ -222,5 +302,20 @@
     );
     $$("a", mobileMenu).forEach(a => a.addEventListener("click", closeMenu));
     document.addEventListener("keydown", e => { if (e.key === "Escape") closeMenu(); });
+  }
+
+  /* ---------- dark / light theme toggle ---------- */
+  const themeBtn = $("#themeToggle");
+  if (themeBtn) {
+    themeBtn.addEventListener("click", () => {
+      const html = document.documentElement;
+      const next = html.dataset.theme === "light" ? "dark" : "light";
+
+      // Brief class enables smooth transitions on everything
+      html.classList.add("lc-switching");
+      html.dataset.theme = next;
+      localStorage.setItem("lc-theme", next);
+      setTimeout(() => html.classList.remove("lc-switching"), 400);
+    });
   }
 })();

@@ -3,6 +3,8 @@ title: "Falling Walls Lab Wrocław"
 date: "2024-09-20"
 category: "Event"
 excerpt: "Living Chess appeared in a public setting for the first time, introducing the project's logic, its role-based structure, and the direction of work that would follow."
+author: "Azad Heydarov"
+author_role: "CEO & Co-Founder"
 ---
 
 ## Falling Walls Lab Wrocław

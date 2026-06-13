@@ -3,6 +3,8 @@ title: "25th International Conference Communication & Culture"
 date: "2025-04-08"
 category: "Conference"
 excerpt: "Firangiz Aslanova presented Living Chess as a performative format enabling collaborative, embodied interaction and social-science observation — returning to Wrocław for a second consecutive year."
+author: "Firangiz Aslanova"
+author_role: "CTO & Co-Founder"
 ---
 
 ## 25th International Conference Communication & Culture — Wrocław

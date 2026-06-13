@@ -42,42 +42,42 @@ pub struct TeamMember {
 pub fn team() -> Vec<TeamMember> {
     vec![
         TeamMember {
-            name: "Azad Heydarov", role: "Vision & Creative Direction", initials: "AZAD",
+            name: "Azad Heydarov", role: "CEO & Co-Founder", initials: "AZAD",
             bio: "Drives the project's vision — creates the concept, guides the research agenda and scripting, and coordinates teams so everything develops into a coherent whole.",
             is_king: true, is_blue: false,
         },
         TeamMember {
-            name: "Firangiz Aslanova", role: "Technical Strategy & CTO", initials: "FIRA",
+            name: "Firangiz Aslanova", role: "CTO & Co-Founder", initials: "FIRA",
             bio: "Leads technical strategy and decisions, transforming conceptual needs into working systems so the tech always supports creative and research goals.",
             is_king: false, is_blue: true,
         },
         TeamMember {
-            name: "Leo Yiğit Ekiz", role: "Visual Identity & Creative Direction", initials: "LEO",
+            name: "Leo Yiğit Ekiz", role: "Creative Director & System Architect", initials: "LEO",
             bio: "Designs the visual identity and overall aesthetic concept — guiding the creative vision and structural framework of the website, digital products, and platforms.",
             is_king: false, is_blue: false,
         },
         TeamMember {
-            name: "Jamal Aslanov", role: "Infrastructure & Internal Systems", initials: "JAMAL",
+            name: "Jamal Aslanov", role: "System Engineer", initials: "JAMAL",
             bio: "Maintains the stability of the machinery — managing infrastructure and internal systems so the team can move quickly without coordination friction.",
             is_king: false, is_blue: false,
         },
         TeamMember {
-            name: "Asmar Khalilli", role: "Interactive & Spatial Design (XR)", initials: "ASMAR",
+            name: "Asmar Khalilli", role: "Unity Programmer & XR Developer", initials: "ASMAR",
             bio: "Creates the interactive, spatial components of Living Chess — prototyping immersive experiences and bringing the game into 3D and XR.",
             is_king: false, is_blue: true,
         },
         TeamMember {
-            name: "Orkhan Imanov", role: "Research & Academic Frameworks", initials: "ORKHAN",
+            name: "Orkhan Imanov", role: "Research & Development Lead", initials: "ORKHAN",
             bio: "Provides intellectual guidance — developing theoretical frameworks, overseeing academic validation, and connecting practice with interdisciplinary research.",
             is_king: false, is_blue: false,
         },
         TeamMember {
-            name: "Emre Can Alptekin", role: "Film, Narrative & Media Adaptation", initials: "EMRE",
+            name: "Emre Can Alptekin", role: "Media & Adaptation Director", initials: "EMRE",
             bio: "Translates gameplay into film and narrative form — developing the adaptation strategy and guiding how gameplay becomes story across media platforms.",
             is_king: false, is_blue: false,
         },
         TeamMember {
-            name: "Elshan Poladli", role: "Finance & Strategic Growth", initials: "ELSHAN",
+            name: "Elshan Poladli", role: "CFO", initials: "ELSHAN",
             bio: "Ensures financial stability — overseeing budgeting, resource planning, and developing sustainable pathways for digital products and media adaptations.",
             is_king: false, is_blue: true,
         },

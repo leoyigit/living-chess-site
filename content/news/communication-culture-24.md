@@ -3,6 +3,9 @@ title: "24th International Conference Communication & Culture"
 date: "2024-04-10"
 category: "Conference"
 excerpt: "Shabnam Mammadova presented Living Chess as a conceptual proposal, mapping MBTI types with chess piece roles to frame a sociological observation instrument."
+link: "https://socjologia.uwr.edu.pl/wydarzenia/konferencja-communication-and-culture/"
+author: "Firangiz Aslanova"
+author_role: "CTO & Co-Founder"
 ---
 
 ## 24th International Conference Communication & Culture — Wrocław

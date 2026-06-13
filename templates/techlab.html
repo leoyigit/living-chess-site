@@ -16,27 +16,7 @@
 <body data-accent="amber" data-font="serif" data-grain="off">
 <div class="atmos" aria-hidden="true"></div>
 
-<!-- NAV -->
-<header class="nav is-stuck" id="nav">
-  <div class="nav__inner">
-    <a class="brand" href="/" aria-label="Living Chess home">
-      <img class="brand__logo" src="/static/assets/logo.png" alt="Living Chess" height="32" />
-    </a>
-    <nav class="nav__links">
-      <a href="/#team">Team</a>
-      <a href="/blog">News</a>
-      <a href="/techlab" aria-current="page" style="color:var(--gold)">TechLab</a>
-      <a href="/#testplays">Testplays</a>
-    </nav>
-    <div class="nav__cta">
-      <a class="btn btn--ghost" href="/#involved">Get Involved</a>
-      <a class="btn btn--gold" href="https://game.livingchess.net/auth" target="_blank" rel="noopener">
-        Join a Game
-        <svg viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      </a>
-    </div>
-  </div>
-</header>
+{% include "nav.html" %}
 
 <main class="blog-main">
   <div class="wrap">
@@ -151,7 +131,7 @@
       <div class="glass tl-cta__inner">
         <h2 class="h-sec" style="font-size:clamp(26px,3vw,40px)">Interested in the <em>research</em>?</h2>
         <p class="lede" style="margin-top:14px">We collaborate with academic institutions, tech teams, and independent researchers. If you want to observe, co-design, or run an experiment — reach out.</p>
-        <div style="display:flex;gap:14px;flex-wrap:wrap;margin-top:28px">
+        <div style="display:flex;gap:14px;flex-wrap:wrap;margin-top:28px;justify-content:center">
           <a class="btn btn--gold" href="/#newsletter">Get research updates</a>
           <a class="btn btn--ghost" href="/#involved">Partner with us</a>
         </div>

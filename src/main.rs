@@ -8,6 +8,7 @@ use tracing_subscriber::{layer::SubscriberExt, util::SubscriberInitExt};
 
 mod blog;
 mod config;
+mod news;
 mod routes;
 
 #[tokio::main]
@@ -26,9 +27,14 @@ async fn main() {
         // Pages
         .route("/",                    get(routes::pages::index))
         .route("/techlab",             get(routes::techlab::page))
+        // News
+        .route("/news",                    get(routes::news::list))
+        .route("/news/author/:author_slug", get(routes::news::by_author))
+        .route("/news/:slug",              get(routes::news::post))
         // Blog
-        .route("/blog",                get(routes::blog::list))
-        .route("/blog/:slug",          get(routes::blog::post))
+        .route("/blog",                    get(routes::blog::list))
+        .route("/blog/author/:author_slug", get(routes::blog::by_author))
+        .route("/blog/:slug",              get(routes::blog::post))
         // API
         .route("/api/register",        post(routes::api::register))
         .route("/api/newsletter",      post(routes::api::newsletter))

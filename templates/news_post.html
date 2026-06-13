@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>{{ post.title }} — Living Chess Blog</title>
+<title>{{ post.title }} — Living Chess</title>
 <meta name="description" content="{{ post.excerpt }}" />
 <link rel="icon" type="image/png" href="/static/assets/favicon.png" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -21,27 +21,25 @@
 <main class="article-main">
   <div class="wrap article-outer">
 
-    <!-- Back link -->
-    <a class="article-back" href="/blog">
+    <a class="article-back" href="/news">
       <svg viewBox="0 0 24 24" fill="none" width="14" height="14"><path d="M19 12H5M11 6l-6 6 6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      All posts
+      All news
     </a>
 
-    <!-- Article header -->
     <header class="article-header">
       <div class="article-header__meta">
         <span class="blog-card__cat">{{ post.category }}</span>
         {% if !post.date.is_empty() %}
         <span class="blog-card__date">{{ post.date }}</span>
         {% endif %}
-        <span class="blog-card__read" id="readTime">{{ post.read_time }} min read</span>
+        <span class="blog-card__read">{{ post.read_time }} min read</span>
       </div>
       <h1 class="article-title">{{ post.title }}</h1>
       {% if !post.excerpt.is_empty() %}
       <p class="article-excerpt">{{ post.excerpt }}</p>
       {% endif %}
       {% if !post.author.is_empty() %}
-      <a class="article-byline" href="/blog/author/{{ post.author_slug }}">
+      <a class="article-byline" href="/news/author/{{ post.author_slug }}">
         <span class="article-byline__avatar">{{ post.author.chars().next().unwrap_or('?') }}</span>
         <span class="article-byline__info">
           <span class="article-byline__name">{{ post.author }}</span>
@@ -51,12 +49,15 @@
         </span>
       </a>
       {% endif %}
+      {% if let Some(url) = post.link %}
+      <a class="btn btn--ghost" href="{{ url }}" target="_blank" rel="noopener" style="margin-top:16px;display:inline-flex">
+        View source ↗
+      </a>
+      {% endif %}
     </header>
 
-    <!-- Two-column layout: TOC + article body -->
     <div class="article-layout">
 
-      <!-- TOC sidebar -->
       <aside class="article-toc" aria-label="Table of contents">
         <div class="article-toc__sticky">
           <button class="article-toc__toggle" id="tocToggle" aria-expanded="true">
@@ -69,7 +70,6 @@
         </div>
       </aside>
 
-      <!-- Article body -->
       <div class="article-content">
         <div class="article-body prose" id="articleBody">
           {{ post.html|safe }}
@@ -77,18 +77,17 @@
 
         <hr class="article-divider" />
 
-        <!-- Author card -->
         {% if !post.author.is_empty() %}
         <div class="author-card">
-          <a class="author-card__avatar" href="/blog/author/{{ post.author_slug }}">
+          <a class="author-card__avatar" href="/news/author/{{ post.author_slug }}">
             {{ post.author.chars().next().unwrap_or('?') }}
           </a>
           <div class="author-card__info">
-            <a class="author-card__name" href="/blog/author/{{ post.author_slug }}">{{ post.author }}</a>
+            <a class="author-card__name" href="/news/author/{{ post.author_slug }}">{{ post.author }}</a>
             {% if !post.author_role.is_empty() %}
             <p class="author-card__role">{{ post.author_role }}</p>
             {% endif %}
-            <a class="author-card__link" href="/blog/author/{{ post.author_slug }}">
+            <a class="author-card__link" href="/news/author/{{ post.author_slug }}">
               All posts by {{ post.author }}
               <svg viewBox="0 0 24 24" fill="none" width="12" height="12"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
             </a>
@@ -96,13 +95,12 @@
         </div>
         {% endif %}
 
-        <!-- More by this author -->
         {% if !by_author.is_empty() %}
         <section class="by-author">
           <h2 class="by-author__title">More by <em>{{ post.author }}</em></h2>
           <div class="by-author__grid">
             {% for p in by_author %}
-            <a class="by-author__card glass" href="/blog/{{ p.slug }}">
+            <a class="by-author__card glass" href="/news/{{ p.slug }}">
               <span class="blog-card__cat">{{ p.category }}</span>
               <h3 class="by-author__card-title">{{ p.title }}</h3>
               {% if !p.excerpt.is_empty() %}
@@ -115,17 +113,16 @@
         </section>
         {% endif %}
 
-        <!-- Footer actions -->
         <footer class="article-footer">
-          <a class="btn btn--ghost" href="/blog">
+          <a class="btn btn--ghost" href="/news">
             <svg viewBox="0 0 24 24" fill="none" width="14" height="14"><path d="M19 12H5M11 6l-6 6 6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-            All posts
+            All news
           </a>
           <a class="btn btn--gold" href="/#testplays">Join a session →</a>
         </footer>
       </div>
 
-    </div><!-- /.article-layout -->
+    </div>
   </div>
 </main>
 

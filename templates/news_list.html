@@ -4,11 +4,11 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 {% if let Some(label) = filter_label %}
-<title>Posts by {{ label }} — Living Chess Blog</title>
+<title>News by {{ label }} — Living Chess</title>
 {% else %}
-<title>Blog — Living Chess</title>
+<title>News &amp; Events — Living Chess</title>
 {% endif %}
-<meta name="description" content="Research, experiments, and field notes from the Living Chess project." />
+<meta name="description" content="Events, conferences, awards and research updates from the Living Chess project." />
 <link rel="icon" type="image/png" href="/static/assets/favicon.png" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -28,19 +28,17 @@
     <div class="blog-header">
       {% if let Some(label) = filter_label %}
       <span class="eyebrow">Author</span>
-      <h1 class="h-sec">Posts by <em>{{ label }}</em></h1>
-      <a class="blog-back-link" href="/blog">← All posts</a>
+      <h1 class="h-sec">News by <em>{{ label }}</em></h1>
+      <a class="blog-back-link" href="/news">← All news</a>
       {% else %}
-      <span class="eyebrow">Research &amp; field notes</span>
-      <h1 class="h-sec">The <em>Blog</em></h1>
-      <p class="lede">Experiments, research updates, and observations from the Living Chess project.</p>
+      <span class="eyebrow">Events &amp; updates</span>
+      <h1 class="h-sec">News &amp; <em>Events</em></h1>
+      <p class="lede">Conferences, awards, field notes and research updates from the Living Chess project.</p>
       {% endif %}
     </div>
 
     {% if posts.is_empty() %}
-    <div class="blog-empty">
-      <p>No posts yet — check back soon.</p>
-    </div>
+    <div class="blog-empty"><p>No news yet — check back soon.</p></div>
     {% else %}
     <div class="blog-grid">
       {% for post in posts %}
@@ -50,7 +48,7 @@
           {% if !post.date.is_empty() %}
           <span class="blog-card__date">{{ post.date }}</span>
           {% endif %}
-          <span class="blog-card__read">{{ post.read_time }} min read</span>
+          <span class="blog-card__read">{{ post.read_time }} min</span>
         </div>
         <h2 class="blog-card__title">{{ post.title }}</h2>
         {% if !post.excerpt.is_empty() %}
@@ -58,15 +56,19 @@
         {% endif %}
         <div class="blog-card__footer">
           {% if !post.author.is_empty() %}
-          <a class="blog-card__author" href="/blog/author/{{ post.author_slug }}">
+          <a class="blog-card__author" href="/news/author/{{ post.author_slug }}">
             <span class="blog-card__avatar">{{ post.author.chars().next().unwrap_or('?') }}</span>
             <span>{{ post.author }}</span>
           </a>
           {% endif %}
-          <a class="blog-card__link" href="/blog/{{ post.slug }}">
-            Read
-            <svg viewBox="0 0 24 24" fill="none" width="13" height="13"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          </a>
+          <div class="blog-card__actions">
+            <a class="blog-card__link" href="/news/{{ post.slug }}">Read
+              <svg viewBox="0 0 24 24" fill="none" width="13" height="13"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </a>
+            {% if let Some(url) = post.link %}
+            <a class="blog-card__link blog-card__link--ext" href="{{ url }}" target="_blank" rel="noopener">Source ↗</a>
+            {% endif %}
+          </div>
         </div>
       </article>
       {% endfor %}

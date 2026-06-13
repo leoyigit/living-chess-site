@@ -23,69 +23,23 @@
 <div class="grain" aria-hidden="true"></div>
 
 <!-- ============ NAV ============ -->
-<header class="nav" id="nav">
-  <div class="nav__inner">
-    <a class="brand" href="#top" aria-label="Living Chess home">
-      <img class="brand__logo" src="/static/assets/logo.png" alt="Living Chess" height="32" />
-    </a>
-    <nav class="nav__links">
-      <a href="#team">Team</a>
-      <a href="#news">News</a>
-      <a href="/blog">Blog</a>
-      <a href="/techlab">TechLab</a>
-      <a href="#testplays">Testplays</a>
-    </nav>
-    <div class="nav__cta">
-      <a class="btn btn--ghost" href="#involved">Get Involved</a>
-      <a class="btn btn--gold" href="https://game.livingchess.net/auth" target="_blank" rel="noopener">
-        Join a Game
-        <svg viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      </a>
-    </div>
-    <button class="nav__burger" id="navBurger" aria-label="Open menu" aria-expanded="false" aria-controls="mobileMenu">
-      <span></span><span></span><span></span>
-    </button>
-  </div>
-</header>
-
-<!-- ── Mobile menu overlay ───────────────────────────────────────────── -->
-<div class="mobile-menu" id="mobileMenu" role="dialog" aria-modal="true" aria-label="Navigation" aria-hidden="true">
-  <div class="mobile-menu__panel">
-    <nav class="mobile-menu__nav">
-      <a href="#how">How it works</a>
-      <a href="#team">Team</a>
-      <a href="#news">News</a>
-      <a href="/blog">Blog</a>
-      <a href="/techlab">TechLab</a>
-      <a href="#testplays">Testplays</a>
-    </nav>
-    <div class="mobile-menu__cta">
-      <a class="btn btn--ghost" href="#involved">Get Involved</a>
-      <a class="btn btn--gold" href="https://game.livingchess.net/auth" target="_blank" rel="noopener">
-        Join a Game
-        <svg viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      </a>
-    </div>
-    <div class="mobile-menu__social">
-      <a href="https://www.facebook.com/livingchessofficial/" target="_blank" rel="noopener" aria-label="Facebook">
-        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
-      </a>
-      <a href="https://www.instagram.com/livingchessofficial/" target="_blank" rel="noopener" aria-label="Instagram">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
-      </a>
-      <a href="https://www.linkedin.com/company/livingchess/" target="_blank" rel="noopener" aria-label="LinkedIn">
-        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
-      </a>
-    </div>
-  </div>
-</div>
+{% include "nav.html" %}
 
 <main id="top">
 
 <!-- ============ HERO ============ -->
 <section class="hero" aria-label="Introduction">
   <div class="hero__bg">
-    <img src="/static/assets/hero.webp" alt="Living Chess — a live performance on a physical board" />
+    <img
+      src="/static/assets/hero.webp"
+      srcset="
+        /static/assets/hero-768.webp  768w,
+        /static/assets/hero-1280.webp 1280w,
+        /static/assets/hero.webp      1920w"
+      sizes="100vw"
+      alt="Living Chess — a live performance on a physical board"
+      fetchpriority="high"
+      decoding="async" />
   </div>
   <div class="hero__overlay"></div>
   <div class="wrap hero__grid">
@@ -133,7 +87,7 @@
     </div>
 
     <div class="how__layout">
-      <div class="steps" id="steps">
+      <div class="steps reveal reveal--left" id="steps">
         <button class="step active" data-step="0">
           <span class="step__bar"></span>
           <span class="step__n">01</span>
@@ -155,7 +109,7 @@
           <span><span class="step__t">The move</span><span class="step__d">The weighted tally resolves. The piece moves. The cycle begins again.</span></span>
         </button>
       </div>
-      <div class="demo glass" id="demo"></div>
+      <div class="demo glass reveal reveal--right" id="demo"></div>
     </div>
   </div>
 </section>
@@ -172,7 +126,7 @@
     </div>
 
     <div class="timeline">
-      <article class="phase-card phase-card--now reveal">
+      <article class="phase-card phase-card--now reveal reveal--left">
         <span class="phase-card__tag"><span class="live-dot"></span>Now running</span>
         <h3>Agent versus agent</h3>
         <p>Two teams of autonomous AI agents play the full three-stage cycle against each other. We log every suggestion, every royal cut, and every weighted ballot to map how synthetic groups converge — or fracture.</p>
@@ -182,7 +136,7 @@
           <div><span>Teams</span><b>All-agent</b></div>
         </div>
       </article>
-      <article class="phase-card phase-card--next reveal">
+      <article class="phase-card phase-card--next reveal reveal--right" data-delay="2">
         <span class="phase-card__tag">Next phase</span>
         <h3>Hybrid human–AI teams</h3>
         <p>Humans and agents share a single board, controlling pieces side by side. When a pawn-agent and a queen-human disagree, whose weight wins — and does the team trust the outcome? Opening for testplays this season.</p>
@@ -195,15 +149,15 @@
     </div>
 
     <div class="questions">
-      <div class="qq reveal">
+      <div class="qq reveal" data-delay="1">
         <span class="qq__n">Open question 01</span>
         <blockquote>Does giving the King no vote make them more powerful, or less?</blockquote>
       </div>
-      <div class="qq reveal">
+      <div class="qq reveal" data-delay="2">
         <span class="qq__n">Open question 02</span>
         <blockquote>When weight decides, do low-rank players stop trying — or organize?</blockquote>
       </div>
-      <div class="qq reveal">
+      <div class="qq reveal" data-delay="3">
         <span class="qq__n">Open question 03</span>
         <blockquote>Can a team of agents be more democratic than a team of people?</blockquote>
       </div>
@@ -223,7 +177,7 @@
     </div>
 
     <div class="testplay__grid">
-      <div class="register glass">
+      <div class="register glass reveal reveal--left">
         <span class="label">Next Sunday session opens in</span>
         <div class="countdown" id="countdown" aria-label="Countdown to next session">
           <div class="cd-unit"><b id="cd-d">00</b><span>days</span></div>
@@ -276,7 +230,7 @@
       </div>
 
       <aside class="testplay__aside">
-        <div class="aside-card glass">
+        <div class="aside-card glass reveal reveal--right" data-delay="2">
           <h4>What a session looks like</h4>
           <ul class="aside-list">
             <li><span class="ic">Start</span><span>Pieces assigned. You meet your team and learn your role weight.</span></li>
@@ -284,7 +238,7 @@
             <li><span class="ic">Debrief</span><span>The game resolves. We review the decisions together over the session record.</span></li>
           </ul>
         </div>
-        <div class="aside-card glass">
+        <div class="aside-card glass reveal reveal--right" data-delay="3">
           <h4>Come as you are</h4>
           <ul class="aside-list">
             <li><span class="ic">↳</span><span>No chess rating required. Pawns shape the game as much as queens.</span></li>
@@ -309,28 +263,28 @@
     </div>
 
     <div class="tracks">
-      <div class="track reveal">
+      <div class="track reveal" data-delay="1">
         <div class="track__ic"><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="8" r="3.4" stroke="currentColor" stroke-width="1.5"/><path d="M5 20c0-3.6 3.1-6 7-6s7 2.4 7 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div>
         <span class="track__tag">Individuals</span>
         <h3>Players &amp; supporters</h3>
         <p>Take a seat at a testplay, or back the project as a recurring supporter. Either way, you become part of the team that decides.</p>
         <a class="track__link" href="#testplays">Join a game →</a>
       </div>
-      <div class="track reveal">
+      <div class="track reveal" data-delay="2">
         <div class="track__ic"><svg viewBox="0 0 24 24" fill="none"><path d="M4 20V9l8-5 8 5v11" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path d="M4 20h16M9 20v-6h6v6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div>
         <span class="track__tag">Institutions</span>
         <h3>Cultural &amp; academic</h3>
         <p>Host a Living Chess performance, co-design a study, or bring the instrument to your students, festival, or research group.</p>
         <a class="track__link" href="#newsletter">Start a conversation →</a>
       </div>
-      <div class="track reveal">
+      <div class="track reveal" data-delay="3">
         <div class="track__ic"><svg viewBox="0 0 24 24" fill="none"><rect x="3.5" y="7.5" width="17" height="12" rx="2" stroke="currentColor" stroke-width="1.5"/><path d="M8.5 7.5V6a2 2 0 012-2h3a2 2 0 012 2v1.5M3.5 12h17" stroke="currentColor" stroke-width="1.5"/></svg></div>
         <span class="track__tag">Companies</span>
         <h3>Teams &amp; partners</h3>
         <p>Use the board as a mirror for how your team makes decisions, or partner on an agentic-AI experiment with measurable outcomes.</p>
         <a class="track__link" href="#newsletter">Partner with us →</a>
       </div>
-      <div class="track reveal">
+      <div class="track reveal" data-delay="4">
         <div class="track__ic"><svg viewBox="0 0 24 24" fill="none"><path d="M12 3v18M7 7c0-2 2-3 5-3s5 1 5 3-2 3-5 3-5 1-5 3 2 3 5 3 5-1 5-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div>
         <span class="track__tag">Funders</span>
         <h3>Grants &amp; patrons</h3>
@@ -351,7 +305,7 @@
       </div>
       <p class="lede">Designers, researchers, and game-makers who built the instrument from scratch.</p>
     </div>
-    <div class="team" id="team-grid">
+    <div class="team stagger" id="team-grid">
       {% for m in team %}
       <div class="member">
         <div class="member__photo">
@@ -382,7 +336,7 @@
     </div>
 
     <div class="news">
-      <article class="news-feature glass">
+      <article class="news-feature glass reveal reveal--left">
         <div class="news-feature__media">
           <span class="vtag">Game record · 24:11</span>
           <button class="play" aria-label="Play game record">
@@ -396,7 +350,7 @@
         </div>
       </article>
 
-      <div class="news-list">
+      <div class="news-list stagger">
         {% for item in news %}
         <article class="news-item">
           <div class="news-item__top">
@@ -417,7 +371,7 @@
 
 <!-- ============ NEWSLETTER ============ -->
 <section class="section section--raised" id="newsletter" aria-label="Newsletter">
-  <div class="wrap newsletter">
+  <div class="wrap newsletter reveal reveal--scale">
     <span class="eyebrow" style="justify-content:center">Stay in the loop</span>
     <h2>Updates about playtests, research calls &amp; <em>what actually happens</em>.</h2>
     <p class="lede" style="margin-inline:auto">If you want updates about playtests, platform access, research calls, screenings, or public sessions, leave your email — no spam, no recycled newsletters — just the things that matter for anyone following the project closely.</p>

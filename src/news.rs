@@ -8,12 +8,13 @@ use std::{
 use pulldown_cmark::{html, Options, Parser};
 
 #[derive(Debug, Clone)]
-pub struct BlogPost {
+pub struct NewsPost {
     pub slug:        String,
     pub title:       String,
     pub date:        String,
     pub category:    String,
     pub excerpt:     String,
+    pub link:        Option<String>,
     pub author:      String,
     pub author_role: String,
     pub author_slug: String,
@@ -24,7 +25,7 @@ pub struct BlogPost {
 const CACHE_TTL_SECS: u64 = 60;
 
 struct Cache {
-    posts:        Vec<BlogPost>,
+    posts:        Vec<NewsPost>,
     refreshed_at: Instant,
 }
 
@@ -34,7 +35,7 @@ fn cache() -> &'static std::sync::Mutex<Option<Cache>> {
     CACHE.get_or_init(|| std::sync::Mutex::new(None))
 }
 
-pub fn all_posts() -> Vec<BlogPost> {
+pub fn all_posts() -> Vec<NewsPost> {
     let mut guard = cache().lock().unwrap();
     let expired = guard.as_ref().map_or(true, |c| {
         c.refreshed_at.elapsed() > Duration::from_secs(CACHE_TTL_SECS)
@@ -48,20 +49,20 @@ pub fn all_posts() -> Vec<BlogPost> {
     }
 }
 
-pub fn find_post(slug: &str) -> Option<BlogPost> {
+pub fn find_post(slug: &str) -> Option<NewsPost> {
     all_posts().into_iter().find(|p| p.slug == slug)
 }
 
-pub fn posts_by_author(author_slug: &str) -> Vec<BlogPost> {
+pub fn posts_by_author(author_slug: &str) -> Vec<NewsPost> {
     all_posts().into_iter().filter(|p| p.author_slug == author_slug).collect()
 }
 
-fn load_from_disk() -> Vec<BlogPost> {
-    let dir = Path::new("content/blog");
+fn load_from_disk() -> Vec<NewsPost> {
+    let dir = Path::new("content/news");
     if !dir.exists() {
         return Vec::new();
     }
-    let mut posts: Vec<BlogPost> = fs::read_dir(dir)
+    let mut posts: Vec<NewsPost> = fs::read_dir(dir)
         .unwrap()
         .filter_map(|entry| {
             let path = entry.ok()?.path();
@@ -76,7 +77,7 @@ fn load_from_disk() -> Vec<BlogPost> {
     posts
 }
 
-fn parse_post(path: &Path, raw: &str) -> Option<BlogPost> {
+fn parse_post(path: &Path, raw: &str) -> Option<NewsPost> {
     let slug = path.file_stem()?.to_str()?.to_string();
 
     if raw.starts_with("---") {
@@ -85,15 +86,16 @@ fn parse_post(path: &Path, raw: &str) -> Option<BlogPost> {
         let fm_str = &rest[..end];
         let body = rest.get(end + 4..).unwrap_or("").trim_start();
 
-        let author = fm_value(fm_str, "author").unwrap_or_else(|| "Living Chess".into());
+        let author = fm_value(fm_str, "author").unwrap_or_else(|| "Living Chess".to_string());
         let author_slug = to_slug(&author);
 
-        return Some(BlogPost {
+        return Some(NewsPost {
             slug,
             title:       fm_value(fm_str, "title").unwrap_or_else(|| slug_to_title(path)),
             date:        fm_value(fm_str, "date").unwrap_or_default(),
-            category:    fm_value(fm_str, "category").unwrap_or_else(|| "Post".into()),
+            category:    fm_value(fm_str, "category").unwrap_or_else(|| "News".into()),
             excerpt:     fm_value(fm_str, "excerpt").unwrap_or_default(),
+            link:        fm_value(fm_str, "link"),
             author_role: fm_value(fm_str, "author_role").unwrap_or_default(),
             read_time:   estimate_read_time(body),
             html:        md_to_html(body),
@@ -104,12 +106,13 @@ fn parse_post(path: &Path, raw: &str) -> Option<BlogPost> {
 
     let author = "Living Chess".to_string();
     let author_slug = to_slug(&author);
-    Some(BlogPost {
+    Some(NewsPost {
         slug,
         title:       slug_to_title(path),
         date:        String::new(),
-        category:    "Post".into(),
+        category:    "News".into(),
         excerpt:     String::new(),
+        link:        None,
         author_role: String::new(),
         read_time:   estimate_read_time(raw),
         html:        md_to_html(raw),
@@ -144,16 +147,14 @@ fn to_slug(s: &str) -> String {
 }
 
 fn estimate_read_time(text: &str) -> usize {
-    let words = text.split_whitespace().count();
-    std::cmp::max(1, words / 200)
+    std::cmp::max(1, text.split_whitespace().count() / 200)
 }
 
 fn slug_to_title(path: &Path) -> String {
     path.file_stem()
         .and_then(|s| s.to_str())
         .unwrap_or("Post")
-        .replace('-', " ")
-        .replace('_', " ")
+        .replace('-', " ").replace('_', " ")
         .split_whitespace()
         .map(|w| {
             let mut c = w.chars();
