@@ -4,6 +4,8 @@ The official website for [livingchess.net](https://www.livingchess.net) — a li
 
 Built with Rust for performance, simplicity, and zero cold-start overhead.
 
+**Live prototype:** [living-chess-site-production.up.railway.app](https://living-chess-site-production.up.railway.app)
+
 ---
 
 ## Stack
@@ -118,7 +120,13 @@ Sessions run on Sundays at 18:00 CET, 20 seats per game.
 
 ## Deployment
 
-The release binary is fully self-contained. Point it at the project root so it can find `static/`, `templates/`, and `content/`.
+Deployed on [Railway](https://railway.app) — every push to `main` triggers an automatic redeploy.
+
+**Live prototype:** [living-chess-site-production.up.railway.app](https://living-chess-site-production.up.railway.app)
+
+To deploy your own instance, connect the GitHub repo to Railway. It auto-detects Rust via `nixpacks.toml` and runs `cargo build --release`.
+
+For a custom VPS:
 
 ```bash
 cargo build -r
