@@ -43,8 +43,8 @@ async fn main() {
         .layer(CompressionLayer::new())
         .layer(TraceLayer::new_for_http());
 
-    let addr = std::env::var("BIND")
-        .unwrap_or_else(|_| "0.0.0.0:3000".into());
+    let port = std::env::var("PORT").unwrap_or_else(|_| "3000".into());
+    let addr = format!("0.0.0.0:{}", port);
 
     let listener = tokio::net::TcpListener::bind(&addr).await.unwrap();
     tracing::info!("Listening on http://{}", listener.local_addr().unwrap());
