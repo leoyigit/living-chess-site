@@ -1,7 +1,4 @@
 /target
 .env
-*.png
-*.webp
-live_source.json
-task.md
+_dev/
 .claude/
