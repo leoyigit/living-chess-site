@@ -1,5 +1,3 @@
+# Railway uses Dockerfile — this file is kept for local nixpacks reference only
 [phases.build]
 cmds = ["cargo build --release"]
-
-[start]
-cmd = "BIND=0.0.0.0:$PORT ./target/release/living_chess"
