@@ -1,0 +1,12 @@
+[build]
+builder = "nixpacks"
+
+[deploy]
+startCommand = "./target/release/living_chess"
+healthcheckPath = "/"
+healthcheckTimeout = 30
+restartPolicyType = "on_failure"
+
+[[deploy.environmentVariables]]
+name = "BIND"
+value = "0.0.0.0:$PORT"
