@@ -379,11 +379,23 @@
 /* ── Responsive patch ───────────────────────────────────────── */
 @media (max-width: 1080px) {
   .hero { min-height: 80vh; }
+  .hero__grid { padding-top: 100px; }
+
+  /* News video: no sticky when stacked to single column */
+  .news-feature { position: static; }
 }
 
 @media (max-width: 620px) {
   .hero { min-height: 70vh; }
   .hero h1 { font-size: clamp(44px, 12vw, 72px); }
+  .hero__grid { padding-top: 84px; padding-bottom: clamp(32px, 8vw, 60px); }
+
+  /* Board: hide on small mobile — hero copy + stats stand alone */
+  .hero__board { display: none; }
+
+  /* CTA: shrink buttons to fit both on one line */
+  .hero__cta { gap: 8px; }
+  .hero__cta .btn { font-size: 13px; padding: 11px 16px; }
 }
 
 /* ── Team: single column on mobile ──────────────────────────── */
@@ -577,8 +589,14 @@ html[data-theme="light"] .brand__logo {
 
 /* ── Hero: editorial light mode — ghost image behind cream veil ── */
 html[data-theme="light"] .hero {
-  min-height: 88vh;
+  min-height: 92vh;
   background: var(--bg);
+}
+@media (max-width: 1080px) {
+  html[data-theme="light"] .hero { min-height: 80vh; }
+}
+@media (max-width: 620px) {
+  html[data-theme="light"] .hero { min-height: 70vh; }
 }
 
 /* Wash the photo to near-white so it reads as texture, not a photo */
@@ -831,4 +849,33 @@ html[data-theme="light"] .footer {
 /* ── Mobile toggle button visibility ── */
 @media (max-width: 768px) {
   .nav__theme-btn { width: 32px; height: 32px; }
+}
+
+/* ── Mobile footer: compact 2-column link grid ── */
+@media (max-width: 620px) {
+  .footer { padding: 36px 0 24px; }
+
+  /* Brand full-width on top, then all 3 link cols in a 2-col grid */
+  .footer__grid {
+    grid-template-columns: 1fr 1fr !important;
+    gap: 20px 24px;
+  }
+
+  /* Brand + social spans both columns */
+  .footer__brand {
+    grid-column: 1 / -1;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .footer__brand p { display: none; } /* hide tagline on mobile */
+
+  /* Tighten link cols */
+  .footer__col { gap: 0; }
+  .footer__col h5 { margin-bottom: 8px; font-size: 10px; }
+  .footer__col a  { font-size: 13px; padding: 3px 0; }
+
+  /* Bottom bar: stack on very narrow */
+  .footer__bottom { margin-top: 24px; flex-direction: column; align-items: flex-start; gap: 4px; }
+  .footer__bottom span { font-size: 11px; }
 }
